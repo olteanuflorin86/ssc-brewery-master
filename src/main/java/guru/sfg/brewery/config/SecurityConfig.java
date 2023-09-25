@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -18,11 +19,6 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -39,6 +35,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .formLogin().and()
         .httpBasic();
+	}
+
+	
+	@Bean
+	PasswordEncoder passwordEncoder() {
+//		return NoOpPasswordEncoder.getInstance();
+		return new LdapShaPasswordEncoder();
 	}
 	
 //	@Override
@@ -62,7 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.roles("ADMIN")
 			.and()
 			.withUser("user")
-			.password("password")
+//			.password("password")
+			.password("{SSHA}fjNOxLGrlmnkhNYIgpgRDqxGLwHM8DUbnsjhdw==")
 			.roles("USER");
 		
 		auth.inMemoryAuthentication().withUser("vasile").password("mypasss").roles("CUSTOMER");
