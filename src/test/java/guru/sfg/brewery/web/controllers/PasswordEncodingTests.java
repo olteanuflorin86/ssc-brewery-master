@@ -16,7 +16,7 @@ public class PasswordEncodingTests {
 	
 	@Test
 	void testBcrypt() {
-		PasswordEncoder bcrypt = new BCryptPasswordEncoder(16);
+		PasswordEncoder bcrypt = new BCryptPasswordEncoder(12);
 		
 		System.out.println(bcrypt.encode(PASSWORD));
 		System.out.println(bcrypt.encode(PASSWORD));
@@ -36,6 +36,8 @@ public class PasswordEncodingTests {
 		
 		System.out.println(ldap.encode(PASSWORD));
 		System.out.println(ldap.encode(PASSWORD));
+		
+		System.out.println(ldap.encode("mypasss"));
 		
 		String encodedPwd = ldap.encode(PASSWORD);
 		

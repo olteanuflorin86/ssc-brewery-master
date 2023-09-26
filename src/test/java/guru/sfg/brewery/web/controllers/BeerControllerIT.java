@@ -15,6 +15,14 @@ import org.springframework.security.test.context.support.WithMockUser;
 public class BeerControllerIT extends BaseIT {
 	
 	@Test
+    void initCreationFormWithFlorin() throws Exception {
+        mockMvc.perform(get("/beers/new").with(httpBasic("Florin", "password")))
+                .andExpect(status().isOk())
+                .andExpect(view().name("beers/createBeer"))
+                .andExpect(model().attributeExists("beer"));
+    }
+	
+	@Test
     void initCreationForm() throws Exception {
         mockMvc.perform(get("/beers/new").with(httpBasic("user", "password")))
                 .andExpect(status().isOk())
