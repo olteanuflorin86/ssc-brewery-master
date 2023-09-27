@@ -18,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -47,7 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //		return new LdapShaPasswordEncoder();
 //		return new StandardPasswordEncoder();
 //		return new BCryptPasswordEncoder();
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		
+//		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return SfgPasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 	
 //	@Override
