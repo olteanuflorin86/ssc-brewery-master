@@ -12,7 +12,15 @@ import guru.sfg.brewery.web.controllers.BaseIT;
 
 @WebMvcTest
 public class BeerRestControllerIT extends BaseIT {
-
+	
+	@Test
+	void deleteBeerBadCreds() throws Exception {
+		mockMvc.perform(delete("/api/v1/beer/e58ed763-928c-4155-bee9-fdbaaadc15f3")
+				.header("Api-Key", "Florin")
+				.header("Api-Secret", "passwordXXXXXX"))
+				.andExpect(status().isUnauthorized());
+	}
+	
 	@Test
 	void deleteBeer() throws Exception {
 		mockMvc.perform(delete("/api/v1/beer/e58ed763-928c-4155-bee9-fdbaaadc15f3")
