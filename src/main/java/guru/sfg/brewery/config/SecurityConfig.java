@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //			.csrf().disable();	
 		
 //		http.addFilterBefore(restUrlAuthFilter(authenticationManager()),
-//                UsernamePasswordAuthenticationFilter.class);
+//                UsernamePasswordAuthenticationFilter.class);	
 		
 		http
         .authorizeRequests(authorize -> {
@@ -59,7 +59,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             	.antMatchers("/beers/find", "/beers*").permitAll()
             	.antMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
             	.mvcMatchers(HttpMethod.DELETE, "/api/v1/beer/**").hasRole("ADMIN")
-            	.mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll();
+            	.mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll()
+            	.mvcMatchers("/brewery/breweries").hasRole("CUSTOMER")
+            	.mvcMatchers(HttpMethod.GET, "/brewery/api/v1/breweries").hasRole("CUSTOMER");
         } )
         .authorizeRequests()
         .anyRequest().authenticated()
