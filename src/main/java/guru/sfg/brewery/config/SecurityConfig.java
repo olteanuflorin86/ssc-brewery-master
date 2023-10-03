@@ -28,7 +28,8 @@ import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+//@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 //	public RestHeaderAuthFilter restHeaderAuthFilter(AuthenticationManager authenticationManager) {
@@ -58,11 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             authorize
             .antMatchers("/h2-console/**").permitAll() //do not use in production!
             .antMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
-            .antMatchers(HttpMethod.GET, "/api/v1/beer/**")
-                .hasAnyRole("ADMIN", "CUSTOMER", "USER")
-            .mvcMatchers(HttpMethod.DELETE, "/api/v1/beer/**").hasRole("ADMIN")
-            .mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}")
-                .hasAnyRole("ADMIN", "CUSTOMER", "USER")
+//            .antMatchers(HttpMethod.GET, "/api/v1/beer/**")
+//                .hasAnyRole("ADMIN", "CUSTOMER", "USER")
+//            .mvcMatchers(HttpMethod.DELETE, "/api/v1/beer/**").hasRole("ADMIN")
+//            .mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}")
+//                .hasAnyRole("ADMIN", "CUSTOMER", "USER")
             .mvcMatchers("/brewery/breweries")
                 .hasAnyRole("ADMIN", "CUSTOMER")
             .mvcMatchers(HttpMethod.GET, "/brewery/api/v1/breweries")

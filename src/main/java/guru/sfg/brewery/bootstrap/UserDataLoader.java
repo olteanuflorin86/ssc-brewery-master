@@ -60,14 +60,14 @@ public class UserDataLoader implements CommandLineRunner {
     	Role customerRole = roleRepository.save(Role.builder().name("CUSTOMER").build());
     	Role userRole = roleRepository.save(Role.builder().name("USER").build());
     	
-    	adminRole.setAuthorities(Set.of(createBeer, updateBeer, readBeer, deleteBeer));
+//    	adminRole.setAuthorities(Set.of(createBeer, updateBeer, readBeer, deleteBeer));
 //    	customerRole.setAuthorities(Set.of(createBeer));
 //    	userRole.setAuthorities(Set.of(createBeer));
     	adminRole.setAuthorities(new HashSet<>(Set.of(createBeer, updateBeer, readBeer, deleteBeer,
     			createCustomer, updateCustomer, readCustomer, deleteCustomer, 
     			createBrewery, updateBrewery, readBrewery, deleteBrewery)));
-    	customerRole.setAuthorities(new HashSet<>(Set.of(createBeer, createCustomer, createBrewery)));
-    	userRole.setAuthorities(new HashSet<>(Set.of(createBeer, createCustomer, createBrewery)));
+    	customerRole.setAuthorities(new HashSet<>(Set.of(readBeer, readCustomer, readBrewery)));
+        userRole.setAuthorities(new HashSet<>(Set.of(readBeer)));
     	
     	roleRepository.saveAll(Arrays.asList(adminRole, customerRole, userRole));
     	
