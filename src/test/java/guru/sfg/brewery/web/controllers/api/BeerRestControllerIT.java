@@ -227,5 +227,6 @@ public class BeerRestControllerIT extends BaseIT {
                     .with(httpBasic(user, pwd)))
                     .andExpect(status().isOk());
         }
+        
     }
 }
