@@ -5,19 +5,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import guru.sfg.brewery.repositories.BeerInventoryRepository;
 import guru.sfg.brewery.repositories.BeerRepository;
 import guru.sfg.brewery.repositories.CustomerRepository;
+import guru.sfg.brewery.services.BeerOrderService;
 import guru.sfg.brewery.services.BeerService;
 import guru.sfg.brewery.services.BreweryService;
 
 @WebMvcTest
 public class IndexControllerIT extends BaseIT {
 
-	protected MockMvc mockMvc;
+//	protected MockMvc mockMvc;
 	
 	@MockBean
 	BeerRepository beerRepository;
@@ -33,6 +35,9 @@ public class IndexControllerIT extends BaseIT {
 
 	@MockBean
 	BeerService beerService;
+	
+	@MockBean
+	BeerOrderService beerOrderService;
 	
 	@Test 
 	void testGetIndexSlash() throws Exception {
