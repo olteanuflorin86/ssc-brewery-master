@@ -271,8 +271,10 @@ public class DefaultBreweryLoader implements CommandLineRunner {
         roleRepository.saveAll(Arrays.asList(adminRole, customerRole, userRole));
 
         userRepository.save(User.builder()
-                .username("spring")
-                .password(passwordEncoder.encode("guru"))
+//                .username("spring")
+//                .password(passwordEncoder.encode("guru"))
+                .username("Florin")
+                .password(passwordEncoder.encode("password"))
                 .role(adminRole)
                 .build());
 
@@ -283,8 +285,10 @@ public class DefaultBreweryLoader implements CommandLineRunner {
                 .build());
 
         userRepository.save(User.builder()
-                .username("scott")
-                .password(passwordEncoder.encode("tiger"))
+//                .username("scott")
+//                .password(passwordEncoder.encode("tiger"))
+                .username("vasile")
+                .password(passwordEncoder.encode("mypasss"))
                 .role(customerRole)
                 .build());
 

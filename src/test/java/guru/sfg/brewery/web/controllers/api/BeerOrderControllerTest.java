@@ -15,11 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import guru.sfg.brewery.bootstrap.DefaultBreweryLoader;
 import guru.sfg.brewery.domain.Beer;
+import guru.sfg.brewery.domain.BeerOrder;
 import guru.sfg.brewery.domain.Customer;
 import guru.sfg.brewery.repositories.BeerOrderRepository;
 import guru.sfg.brewery.repositories.BeerRepository;
@@ -147,6 +149,45 @@ public class BeerOrderControllerTest extends BaseIT {
     void listOrdersNoAuth() throws Exception {
         mockMvc.perform(get(API_ROOT + stPeteCustomer.getId()))
                 .andExpect(status().isUnauthorized());
+    }
+    
+    @Transactional
+    @Test
+    void getByOrderIdNotAuth() throws Exception {
+        BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();
+
+        mockMvc.perform(get(API_ROOT + stPeteCustomer.getId() + "/orders/" + beerOrder.getId()))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Transactional
+    @WithUserDetails("Florin")
+    @Test
+    void getByOrderIdADMIN() throws Exception {
+        BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();
+
+        mockMvc.perform(get(API_ROOT + stPeteCustomer.getId() + "/orders/" + beerOrder.getId()))
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Transactional
+    @WithUserDetails(DefaultBreweryLoader.STPETE_USER)
+    @Test
+    void getByOrderIdCustomerAuth() throws Exception {
+        BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();
+
+        mockMvc.perform(get(API_ROOT + stPeteCustomer.getId() + "/orders/" + beerOrder.getId()))
+                .andExpect(status().is2xxSuccessful());
+    }
+
+    @Transactional
+    @WithUserDetails(DefaultBreweryLoader.DUNEDIN_USER)
+    @Test
+    void getByOrderIdCustomerNOTAuth() throws Exception {
+        BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();
+
+        mockMvc.perform(get(API_ROOT + stPeteCustomer.getId() + "/orders/" + beerOrder.getId()))
+                .andExpect(status().isForbidden());
     }
 
     @Disabled
