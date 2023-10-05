@@ -1,6 +1,6 @@
 package guru.sfg.brewery.bootstrap;
 
-import java.util.Arrays;
+import java.util.Arrays; 
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-@Component
+// We don't use UserDataLoader for now...
+//@Component
 public class UserDataLoader implements CommandLineRunner {
 
     private final AuthorityRepository authorityRepository;
