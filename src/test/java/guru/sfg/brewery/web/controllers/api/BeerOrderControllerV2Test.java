@@ -82,7 +82,7 @@ public class BeerOrderControllerV2Test extends BaseIT {
     }
 
 
-    @Disabled
+//    @Disabled
     @Transactional
     @Test
     void getByOrderIdNotAuth() throws Exception {
@@ -92,9 +92,9 @@ public class BeerOrderControllerV2Test extends BaseIT {
                 .andExpect(status().isUnauthorized());
     }
 
-    @Disabled
+//    @Disabled
     @Transactional
-    @WithUserDetails("spring")
+    @WithUserDetails("Florin")
     @Test
     void getByOrderIdADMIN() throws Exception {
         BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();
@@ -103,7 +103,7 @@ public class BeerOrderControllerV2Test extends BaseIT {
                 .andExpect(status().is2xxSuccessful());
     }
 
-    @Disabled
+//    @Disabled
     @Transactional
     @WithUserDetails(DefaultBreweryLoader.STPETE_USER)
     @Test
@@ -114,7 +114,7 @@ public class BeerOrderControllerV2Test extends BaseIT {
                 .andExpect(status().is2xxSuccessful());
     }
 
-    @Disabled
+//    @Disabled
     @Transactional
     @WithUserDetails(DefaultBreweryLoader.DUNEDIN_USER)
     @Test
@@ -122,6 +122,7 @@ public class BeerOrderControllerV2Test extends BaseIT {
         BeerOrder beerOrder = stPeteCustomer.getBeerOrders().stream().findFirst().orElseThrow();
 
         mockMvc.perform(get(API_ROOT + beerOrder.getId()))
-                .andExpect(status().isForbidden());
+//                .andExpect(status().isForbidden());
+        		.andExpect(status().isNotFound());
     }
 }

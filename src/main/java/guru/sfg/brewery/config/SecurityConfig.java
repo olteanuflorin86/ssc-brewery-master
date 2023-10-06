@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -31,6 +32,12 @@ import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
 //@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	// need for use with Spring Data JPA SPeL
+	@Bean
+	public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+		return new SecurityEvaluationContextExtension();
+	}
 	
 //	public RestHeaderAuthFilter restHeaderAuthFilter(AuthenticationManager authenticationManager) {
 //		RestHeaderAuthFilter filter = new RestHeaderAuthFilter(new AntPathRequestMatcher("/api/**"));
