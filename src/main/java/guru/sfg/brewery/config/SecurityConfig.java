@@ -26,12 +26,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import guru.sfg.brewery.security.RestHeaderAuthFilter;
 import guru.sfg.brewery.security.RestUrlAuthFilter;
 import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 //@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	private final UserDetailsService userDetailsService;
 	
 	// need for use with Spring Data JPA SPeL
 	@Bean
@@ -98,7 +102,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          })
         .httpBasic()
 //        .and().csrf().disable();	
-        .and().csrf().ignoringAntMatchers("/h2-console/**"/*, "/api/**"*/);
+        .and().csrf().ignoringAntMatchers("/h2-console/**"/*, "/api/**"*/)
+        .and().rememberMe()
+	        .key("sfg-key")
+	        .userDetailsService(userDetailsService);
 		
 		//h2 console config
 		http.headers().frameOptions().sameOrigin();
