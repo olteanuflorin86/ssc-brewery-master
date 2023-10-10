@@ -40,6 +40,11 @@ import lombok.Singular;
 @Entity
 public class User implements UserDetails, CredentialsContainer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 128083769045433084L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -89,6 +94,14 @@ public class User implements UserDetails, CredentialsContainer {
 	
 	@Builder.Default 
 	private Boolean enabled = true;
+	
+	@Builder.Default
+	private Boolean userGoogle2fa = false;
+	
+	private String google2FaSecret;
+	
+	@Transient
+	private Boolean google2faRequired = true;
 
 	@Override
 	public void eraseCredentials() {
