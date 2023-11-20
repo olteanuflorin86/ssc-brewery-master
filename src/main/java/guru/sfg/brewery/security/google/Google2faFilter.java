@@ -26,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 public class Google2faFilter extends GenericFilterBean {
 
 	private final AuthenticationTrustResolver authenticationTrustResolver = new AuthenticationTrustResolverImpl();
+	private final Google2faFailureHandler google2faFailureHandler = new Google2faFailureHandler();
 	
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -46,6 +47,8 @@ public class Google2faFilter extends GenericFilterBean {
 					log.debug("2FA Required");
 					
 					// to do add failure handle
+					google2faFailureHandler.onAuthenticationFailure(request, response, null);
+					
 				}
 			}
 		
