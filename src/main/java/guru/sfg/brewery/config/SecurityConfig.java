@@ -22,11 +22,13 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import guru.sfg.brewery.security.RestHeaderAuthFilter;
 import guru.sfg.brewery.security.RestUrlAuthFilter;
 import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
+import guru.sfg.brewery.security.google.Google2faFilter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -38,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private final UserDetailsService userDetailsService;
 	private final PersistentTokenRepository persistentTokenRepository;
+	private final Google2faFilter google2faFilter;
 	
 	// need for use with Spring Data JPA SPeL
 	@Bean
@@ -66,6 +69,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 //		http.addFilterBefore(restUrlAuthFilter(authenticationManager()),
 //                UsernamePasswordAuthenticationFilter.class);	
+
+		http.addFilterBefore(google2faFilter, SessionManagementFilter.class);
 		
 		http
         .authorizeRequests(authorize -> {
