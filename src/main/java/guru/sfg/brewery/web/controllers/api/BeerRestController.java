@@ -126,6 +126,7 @@ public class BeerRestController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @CrossOrigin
 //    @PreAuthorize("hasRole('ADMIN')")
 //    @PreAuthorize("hasAuthority('beer.delete')")
     @BeerDeletePermission
