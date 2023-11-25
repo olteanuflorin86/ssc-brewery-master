@@ -32,10 +32,10 @@ import guru.sfg.brewery.security.google.Google2faFilter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 ////@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private final UserDetailsService userDetailsService;
@@ -72,7 +72,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.addFilterBefore(google2faFilter, SessionManagementFilter.class);
 		
-		http
+//		http
+		http.cors().and()
         .authorizeRequests(authorize -> {
             authorize
             .antMatchers("/h2-console/**").permitAll() //do not use in production!
