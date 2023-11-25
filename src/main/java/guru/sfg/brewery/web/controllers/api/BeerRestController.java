@@ -106,7 +106,7 @@ public class BeerRestController {
     @PostMapping(path = "beer")
     public ResponseEntity saveNewBeer(@Valid @RequestBody BeerDto beerDto){
 
-        BeerDto savedDto = beerService.saveBeer(beerDto);
+    	BeerDto savedDto = beerService.saveBeer(beerDto);
 
         HttpHeaders httpHeaders = new HttpHeaders();
 
