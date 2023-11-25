@@ -32,10 +32,10 @@ import guru.sfg.brewery.security.google.Google2faFilter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Configuration
-@EnableWebSecurity
-//@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@Configuration
+//@EnableWebSecurity
+////@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private final UserDetailsService userDetailsService;
@@ -122,17 +122,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		
 	}
 
-	
-	@Bean
-	PasswordEncoder passwordEncoder() {
-//		return NoOpPasswordEncoder.getInstance();
-//		return new LdapShaPasswordEncoder();
-//		return new StandardPasswordEncoder();
-//		return new BCryptPasswordEncoder();
-		
-//		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-		return SfgPasswordEncoderFactories.createDelegatingPasswordEncoder();
-	}
+	// Moved it to SecurityBeans.java when we test Spring Security + Spring MVC + CORS
+//	@Bean
+//	PasswordEncoder passwordEncoder() {
+////		return NoOpPasswordEncoder.getInstance();
+////		return new LdapShaPasswordEncoder();
+////		return new StandardPasswordEncoder();
+////		return new BCryptPasswordEncoder();
+//		
+////		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//		return SfgPasswordEncoderFactories.createDelegatingPasswordEncoder();
+//	}
 	
 //	@Override
 //	protected void configure(AuthenticationManagerBuilder auth) throws Exception {

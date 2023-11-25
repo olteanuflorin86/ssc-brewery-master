@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
@@ -16,8 +17,22 @@ import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorConfig;
 import com.warrenstrange.googleauth.ICredentialRepository;
 
+import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
+
 @Configuration
 public class SecurityBeans {
+	
+	// Moved it here from SecurityBeans.java when we test Spring Security + Spring MVC + CORS
+	@Bean
+	PasswordEncoder passwordEncoder() {
+//		return NoOpPasswordEncoder.getInstance();
+//		return new LdapShaPasswordEncoder();
+//		return new StandardPasswordEncoder();
+//		return new BCryptPasswordEncoder();
+		
+//		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return SfgPasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
 	
 	@Bean
 	public GoogleAuthenticator googleAuthenticator(ICredentialRepository credentialRepository) {
